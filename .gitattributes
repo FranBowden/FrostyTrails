@@ -3,3 +3,4 @@
 Assets/Vuforia/* filter=lfs diff=lfs merge=lfs -text
 Assets/StreamingAssets/* filter=lfs diff=lfs merge=lfs -text
 Packages/* filter=lfs diff=lfs merge=lfs -text
+Assets/Editor/Migration/com.ptc.vuforia.engine-10.25.4.tgz filter=lfs diff=lfs merge=lfs -text
