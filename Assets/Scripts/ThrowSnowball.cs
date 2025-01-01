@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ThrowSnowball : MonoBehaviour
@@ -9,23 +7,32 @@ public class ThrowSnowball : MonoBehaviour
     private Transform ballTransform;
     private Transform arCamera;
     private AudioSource snowballAudio;
-
+    private Renderer renderer;
     [SerializeField] private float forceAmount = 5f;
     [SerializeField] private float dragAmount = 1f;
+    [SerializeField] private AudioSource audio;
 
+
+    public SnowmanThrowBall snowmanThrowball;
+
+    [SerializeField] private Animator animator;
     void Start()
     {
+        
+
         arCamera = Camera.main.transform;
         ballRb = GetComponent<Rigidbody>();
         ballRb.linearDamping = dragAmount;
         ballTransform = transform;
 
         snowballAudio = GetComponent<AudioSource>();
+        renderer = GetComponent<Renderer>();
     }
 
 
     public void throwSnowball()
     {
+        this.GetComponent<Renderer>().enabled = true;
         ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
         Vector3 shootDirection = arCamera.forward;
 
@@ -42,19 +49,21 @@ public class ThrowSnowball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Snowman"))   //if collides with snowman
+        if (collision.gameObject.CompareTag("Snowman"))   //if collides with snowman
         {
-          
-            Debug.Log("Hit snowman");
-            if (Camera.main != null)
-            {
-                Vector3 direction = Camera.main.transform.position - transform.position;
-                direction.y = 0;
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Adjust speed with the last parameter
-            }
-            //  AnimManager.SadSnowmanAnim();
 
-        } 
+            Debug.Log("Hit snowman");
+
+            if (renderer != null)
+            {
+                renderer.enabled = false;
+            }
+            audio.Play();
+            animator.SetTrigger("Sad");
+            snowmanThrowball.ThrowSnowballAtCam();
+        }
     }
+
+
+
 }

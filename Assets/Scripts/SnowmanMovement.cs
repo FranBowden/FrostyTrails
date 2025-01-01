@@ -1,18 +1,26 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SnowmanMovement : MonoBehaviour
 {
+    public Animator animator;
+
+    //private SnowmanAnimatorManager animatorManager;
     private NavMeshAgent agent;
-     
+
     [SerializeField] private float boundaryBuffer = 0.5f;
-    [SerializeField] private float destinationThreshold = 1f; 
+    [SerializeField] private float destinationThreshold = 1f;
 
     private Vector3 navMeshBoundsMin;
     private Vector3 navMeshBoundsMax;
     private void Start()
     {
+        StartCoroutine("Jump");
+
+
         agent = GetComponent<NavMeshAgent>();
+        //  animatorManager = GetComponent<SnowmanAnimatorManager>();
 
         MeshFilter navMeshMesh = GetComponent<MeshFilter>();
         if (navMeshMesh != null)
@@ -21,8 +29,18 @@ public class SnowmanMovement : MonoBehaviour
             navMeshBoundsMax = navMeshMesh.mesh.bounds.max + transform.position;
         }
 
-        // Set the first random destination
         SetRandomDestination();
+
+
+        /*
+        if(animatorManager != null)
+        {
+            StartCoroutine("Jump");
+        } else
+        {
+            Debug.Log("Cannot find animator Manager Script");
+        }*/
+
     }
 
     private void Update()
@@ -49,5 +67,11 @@ public class SnowmanMovement : MonoBehaviour
         float randomZ = Random.Range(navMeshBoundsMin.z + boundaryBuffer, navMeshBoundsMax.z - boundaryBuffer);
 
         return new Vector3(randomX, 0, randomZ);
+    }
+
+    IEnumerator Jump()
+    {
+        animator.SetBool("Jump", true);
+        yield return new WaitForSeconds(.5f);
     }
 }

@@ -7162,7 +7162,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6827744567678572900}
   - component: {fileID: 3634305573424480733}
-  - component: {fileID: 3678215957913551952}
   - component: {fileID: 3824106145774593425}
   - component: {fileID: 4324175758582150117}
   - component: {fileID: 2210573601845285459}
@@ -7211,24 +7210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f63ab1f98f9dd4cbf935ccf75dca1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   boundaryBuffer: 15
   destinationThreshold: 1
---- !u!114 &3678215957913551952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7441650151520658115}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e833c13dbad3a46933fd766f1df7c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snowComputeShader: {fileID: 7200000, guid: cfdeb4a54eea0334095d77d4d302ba42, type: 3}
-  snowRT: {fileID: 0}
-  colorValueToAdd: 0
-  spotSize: 2
 --- !u!114 &3824106145774593425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7241,7 +7225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9f967a61300a544962aa745b9ba0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6243434546619017385}
 --- !u!82 &4324175758582150117
 AudioSource:
   m_ObjectHideFlags: 0
