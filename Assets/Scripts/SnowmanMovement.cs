@@ -16,7 +16,7 @@ public class SnowmanMovement : MonoBehaviour
     private Vector3 navMeshBoundsMax;
     private void Start()
     {
-        StartCoroutine("Jump");
+       // StartCoroutine("Jump");
 
 
         agent = GetComponent<NavMeshAgent>();
@@ -69,9 +69,11 @@ public class SnowmanMovement : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
+    /*
     IEnumerator Jump()
     {
         animator.SetBool("Jump", true);
         yield return new WaitForSeconds(.5f);
     }
+    */
 }

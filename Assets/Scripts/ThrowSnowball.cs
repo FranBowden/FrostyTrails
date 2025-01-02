@@ -8,9 +8,11 @@ public class ThrowSnowball : MonoBehaviour
     private Transform arCamera;
     private AudioSource snowballAudio;
     private Renderer renderer;
+    private bool animationPlayed;
     [SerializeField] private float forceAmount = 5f;
     [SerializeField] private float dragAmount = 1f;
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource WhineAudio;
+    [SerializeField] private AudioSource SnowballAudio;
 
 
     public SnowmanThrowBall snowmanThrowball;
@@ -18,7 +20,7 @@ public class ThrowSnowball : MonoBehaviour
     [SerializeField] private Animator animator;
     void Start()
     {
-        
+
 
         arCamera = Camera.main.transform;
         ballRb = GetComponent<Rigidbody>();
@@ -58,8 +60,15 @@ public class ThrowSnowball : MonoBehaviour
             {
                 renderer.enabled = false;
             }
-            audio.Play();
-            animator.SetTrigger("Sad");
+          
+
+           
+              animator.SetTrigger("Sad");
+                
+            
+            
+            
+
             snowmanThrowball.ThrowSnowballAtCam();
         }
     }
