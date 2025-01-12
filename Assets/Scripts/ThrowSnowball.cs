@@ -45,6 +45,7 @@ public class ThrowSnowball : MonoBehaviour
             animator.SetTrigger("Sad"); //sad triggers the next animation
             SnowballAudio.Play(); //play the snowball sound 
             OuchAudio.Play(); //play the snowman ouch sound
+            snowmanThrowball.ThrowSnowballAtCam(); //throw snowball back at player
         }
     }
 

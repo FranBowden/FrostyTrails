@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SnowmanThrowBall : MonoBehaviour
 {
+    [SerializeField] private GameObject snowmanArm;
     [SerializeField] private GameObject snowball;
+    [SerializeField] private Animator snowballDripAnim;
     [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
-
+    [SerializeField] private AudioSource WhisleAudio;
     private float speed = 2.0f;
     private bool snowballMoving = false;
     private Transform arCamera;
@@ -17,13 +19,15 @@ public class SnowmanThrowBall : MonoBehaviour
     }
     public void ThrowSnowballAtCam()
     {
+        snowball.GetComponent<Renderer>().enabled = true;
         snowball.SetActive(true);
-        snowball.transform.position = gameObject.transform.position;
+        snowball.transform.position = snowmanArm.transform.position;
         snowballMoving = true;
     }
 
     private void Update()
     {
+
         if (snowball.activeSelf) //if the snowball is active
         {
             if (snowballMoving) //and it is moving
@@ -34,13 +38,19 @@ public class SnowmanThrowBall : MonoBehaviour
             if (snowball.transform.position == arCamera.position) //if the snowball reaches the position of where the camera is at
             {
                 //play audio effects
+
+                WhisleAudio.Stop();
                 SnowballAudio.Play(); 
                 OuchAudio.Play();
-
+               
                 //snap snowball to snowman position
-                snowball.transform.position = gameObject.transform.position;
+                snowball.transform.position = snowmanArm.transform.position;
                 snowball.SetActive(false); //make the snowball invisable
-                snowballMoving = false; 
+                snowballMoving = false;
+                snowball.GetComponent<Renderer>().enabled = false;
+
+                snowballDripAnim.SetTrigger("Drip");
+                WhisleAudio.Play();
             }
         }
     }
