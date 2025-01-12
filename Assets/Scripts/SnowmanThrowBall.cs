@@ -6,6 +6,7 @@ public class SnowmanThrowBall : MonoBehaviour
     public GameObject snowball;
     public GameObject snowman;
     public Camera camera;
+    [SerializeField] private AudioSource ouch;
 
     public float speed = 2.0f;
 
@@ -30,9 +31,11 @@ public class SnowmanThrowBall : MonoBehaviour
             if (snowball.transform.position == camera.transform.position)
             {
 
+                ouch.Play();
                 snowball.transform.position = snowman.transform.position;
                 snowball.SetActive(false);
                 snowballMoving = false;
+
             }
         }
     }

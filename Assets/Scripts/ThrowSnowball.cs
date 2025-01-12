@@ -11,9 +11,9 @@ public class ThrowSnowball : MonoBehaviour
     private bool animationPlayed;
     [SerializeField] private float forceAmount = 5f;
     [SerializeField] private float dragAmount = 1f;
-    [SerializeField] private AudioSource WhineAudio;
+    [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
-
+    private bool actionTriggered = false;
 
     public SnowmanThrowBall snowmanThrowball;
 
@@ -60,19 +60,13 @@ public class ThrowSnowball : MonoBehaviour
             {
                 renderer.enabled = false;
             }
-          
 
-           
-              animator.SetTrigger("Sad");
-                
-            
-            
-            
 
-            snowmanThrowball.ThrowSnowballAtCam();
+
+            animator.SetTrigger("Sad"); //sad triggers the next animation
+            OuchAudio.Play();
+
         }
     }
-
-
 
 }
