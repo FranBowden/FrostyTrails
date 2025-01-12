@@ -2,39 +2,29 @@ using UnityEngine;
 
 public class ThrowSnowball : MonoBehaviour
 {
+    [SerializeField] private SnowmanThrowBall snowmanThrowball;
+    [SerializeField] private Animator animator;
     [SerializeField] private SnowmanAnimatorManager AnimManager;
+    [SerializeField] private AudioSource OuchAudio;
+    [SerializeField] private AudioSource SnowballAudio;
+    [SerializeField] private float forceAmount = 5f;
+    [SerializeField] private float dragAmount = 1f;
+
     private Rigidbody ballRb;
     private Transform ballTransform;
     private Transform arCamera;
-    private AudioSource snowballAudio;
-    private Renderer renderer;
-    private bool animationPlayed;
-    [SerializeField] private float forceAmount = 5f;
-    [SerializeField] private float dragAmount = 1f;
-    [SerializeField] private AudioSource OuchAudio;
-    [SerializeField] private AudioSource SnowballAudio;
-    private bool actionTriggered = false;
 
-    public SnowmanThrowBall snowmanThrowball;
-
-    [SerializeField] private Animator animator;
-    void Start()
-    {
-
-
+    void Start() { 
         arCamera = Camera.main.transform;
         ballRb = GetComponent<Rigidbody>();
         ballRb.linearDamping = dragAmount;
         ballTransform = transform;
-
-        snowballAudio = GetComponent<AudioSource>();
-        renderer = GetComponent<Renderer>();
     }
 
 
     public void throwSnowball()
     {
-        this.GetComponent<Renderer>().enabled = true;
+        GetComponent<Renderer>().enabled = true; //make snowball visable
         ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
         Vector3 shootDirection = arCamera.forward;
 
@@ -44,28 +34,17 @@ public class ThrowSnowball : MonoBehaviour
         ballRb.AddForce(shootDirection * forceAmount, ForceMode.Impulse);
 
         ballRb.linearVelocity *= 0.8f;
-
-        snowballAudio.Play();
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Snowman"))   //if collides with snowman
+        if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
-
-            Debug.Log("Hit snowman");
-
-            if (renderer != null)
-            {
-                renderer.enabled = false;
-            }
-
-
-
+            Debug.Log("Snowball has hit the snowoman"); //debug log
             animator.SetTrigger("Sad"); //sad triggers the next animation
-            OuchAudio.Play();
-
+            SnowballAudio.Play(); //play the snowball sound 
+            OuchAudio.Play(); //play the snowman ouch sound
         }
     }
 
