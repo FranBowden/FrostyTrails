@@ -1,6 +1,6 @@
 # Frosty Trails AR App
 
-Welcome to the Frosty Trails repository!
+Welcome to the Frosty Trails repository! This AR app transforms your surroundings into a festive winter scene, featuring a snowman and a tree. Designed for **Android devices** and built with **Unity**.
 ## Prerequisites
 This project uses:
 - **Unity Engine** version **6.0.30f1**  
