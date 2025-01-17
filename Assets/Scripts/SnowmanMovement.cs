@@ -5,20 +5,17 @@ using UnityEngine.AI;
 public class SnowmanMovement : MonoBehaviour
 {
     public Animator animator;
-
-    //private SnowmanAnimatorManager animatorManager;
     private NavMeshAgent agent;
-
-    [SerializeField] private float boundaryBuffer = 0.5f;
-    [SerializeField] private float destinationThreshold = 1f;
+    private float boundaryBuffer = 0.5f;
+    private float boundaryScale = 0.5f;
 
     private Vector3 navMeshBoundsMin;
     private Vector3 navMeshBoundsMax;
+
+    public bool isPaused = false;
+
     private void Start()
     {
-       // StartCoroutine("Jump");
-
-
         agent = GetComponent<NavMeshAgent>();
         //  animatorManager = GetComponent<SnowmanAnimatorManager>();
 
@@ -29,23 +26,21 @@ public class SnowmanMovement : MonoBehaviour
             navMeshBoundsMax = navMeshMesh.mesh.bounds.max + transform.position;
         }
 
+        Vector3 center = (navMeshBoundsMin + navMeshBoundsMax) / 2;
+        Vector3 size = navMeshBoundsMax - navMeshBoundsMin;
+
+        size *= boundaryScale;
+
+        navMeshBoundsMin = center - size / 2;
+        navMeshBoundsMax = center + size / 2;
+
         SetRandomDestination();
-
-
-        /*
-        if(animatorManager != null)
-        {
-            StartCoroutine("Jump");
-        } else
-        {
-            Debug.Log("Cannot find animator Manager Script");
-        }*/
 
     }
 
     private void Update()
     {
-
+        if (isPaused) return;
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             SetRandomDestination();
@@ -69,11 +64,28 @@ public class SnowmanMovement : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
-    /*
-    IEnumerator Jump()
+    public void PauseMovement()
     {
-        animator.SetBool("Jump", true);
-        yield return new WaitForSeconds(.5f);
+        isPaused = true;
+        agent.isStopped = true; // Stop the NavMeshAgent
     }
-    */
+
+    public void ResumeMovement()
+    {
+        isPaused = false;
+        agent.isStopped = false; // Resume the NavMeshAgent
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (navMeshBoundsMin != Vector3.zero && navMeshBoundsMax != Vector3.zero)
+        {
+            Gizmos.color = Color.red;
+            Vector3 center = (navMeshBoundsMin + navMeshBoundsMax) / 2;
+
+          
+            Vector3 size = navMeshBoundsMax - navMeshBoundsMin;
+            Gizmos.DrawWireCube(center, size);
+        }
+    }
 }

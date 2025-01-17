@@ -9,6 +9,7 @@ public class SnowmanThrowBall : MonoBehaviour
     [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
     [SerializeField] private AudioSource WhisleAudio;
+    [SerializeField] private SnowmanMovement SnowmanMovement;
     private float speed = 2.0f;
     private bool snowballMoving = false;
     private Transform arCamera;
@@ -51,6 +52,7 @@ public class SnowmanThrowBall : MonoBehaviour
 
                 snowballDripAnim.SetTrigger("Drip");
                 WhisleAudio.Play();
+                SnowmanMovement.ResumeMovement();
             }
         }
     }

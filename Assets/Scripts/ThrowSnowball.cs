@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class ThrowSnowball : MonoBehaviour
 {
+    [SerializeField] private Transform snowman;
     [SerializeField] private SnowmanThrowBall snowmanThrowball;
+    [SerializeField] private SnowmanMovement snowmanMovement;
     [SerializeField] private Animator animator;
     [SerializeField] private SnowmanAnimatorManager AnimManager;
     [SerializeField] private AudioSource OuchAudio;
@@ -13,6 +15,7 @@ public class ThrowSnowball : MonoBehaviour
     private Rigidbody ballRb;
     private Transform ballTransform;
     private Transform arCamera;
+    private bool lookatcamera = false;
 
     void Start() { 
         arCamera = Camera.main.transform;
@@ -37,16 +40,32 @@ public class ThrowSnowball : MonoBehaviour
     }
 
 
+    void SnowmanLooksAtCamera()
+    {
+
+        //snowman.transform.Rotate(snowman.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y - 180, snowman.transform.eulerAngles.z, Space.World);
+
+        Vector3 targetPosition = Camera.main.transform.position;
+        targetPosition.y = snowman.transform.position.y; // Keep the snowman upright
+        snowman.transform.LookAt(targetPosition);
+        snowmanMovement.PauseMovement();
+    }
+    
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
+            SnowmanLooksAtCamera();
             Debug.Log("Snowball has hit the snowoman"); //debug log
             animator.SetTrigger("Sad"); //sad triggers the next animation
             SnowballAudio.Play(); //play the snowball sound 
             OuchAudio.Play(); //play the snowman ouch sound
-            snowmanThrowball.ThrowSnowballAtCam(); //throw snowball back at player
         }
     }
+
+   
 
 }
