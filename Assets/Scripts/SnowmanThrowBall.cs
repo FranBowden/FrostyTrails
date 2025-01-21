@@ -8,6 +8,8 @@ public class SnowmanThrowBall : MonoBehaviour
     [SerializeField] private Animator snowballDripAnim;
     [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
+    [SerializeField] private AudioSource meltingAudio;
+
     [SerializeField] private AudioSource WhisleAudio;
     [SerializeField] private SnowmanMovement SnowmanMovement;
     private float speed = 2.0f;
@@ -41,7 +43,8 @@ public class SnowmanThrowBall : MonoBehaviour
                 //play audio effects
 
                 WhisleAudio.Stop();
-                SnowballAudio.Play(); 
+                SnowballAudio.Play();
+                meltingAudio.Play();
                 OuchAudio.Play();
                
                 //snap snowball to snowman position
