@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6fd489f1aaaf8cb45989f64300b8a747
+  - enabled: 1
     path: Assets/Scenes/ARScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
@@ -15,3 +18,4 @@ EditorBuildSettings:
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c5846efe24282ec4188b64cf4f4245d7,
       type: 2}
+  m_UseUCBPForAssetBundles: 0
