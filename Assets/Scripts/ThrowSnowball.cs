@@ -15,17 +15,17 @@ public class ThrowSnowball : MonoBehaviour
     private Rigidbody ballRb;
     private Transform ballTransform;
     private Transform arCamera;
-    private bool lookatcamera = false;
 
     void Start() { 
-        arCamera = Camera.main.transform;
+        
+        arCamera = Camera.main.transform; //assign ar cam 
         ballRb = GetComponent<Rigidbody>();
         ballRb.linearDamping = dragAmount;
         ballTransform = transform;
     }
 
 
-    public void throwSnowball()
+    public void throwSnowball() //User throws snowball
     {
         GetComponent<Renderer>().enabled = true; //make snowball visable
         ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
@@ -42,27 +42,27 @@ public class ThrowSnowball : MonoBehaviour
 
     void SnowmanLooksAtCamera()
     {
-
-        //snowman.transform.Rotate(snowman.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y - 180, snowman.transform.eulerAngles.z, Space.World);
-
         Vector3 targetPosition = Camera.main.transform.position;
-        targetPosition.y = snowman.transform.position.y; // Keep the snowman upright
+        targetPosition.y = snowman.transform.position.y; //keep the snowman upright
         snowman.transform.LookAt(targetPosition);
-        snowmanMovement.PauseMovement();
+        snowmanMovement.PauseMovement(); //Stop the snowman moving
     }
-    
-
-
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
-            SnowmanLooksAtCamera();
-            Debug.Log("Snowball has hit the snowoman"); //debug log
-            animator.SetTrigger("Sad"); //sad triggers the next animation
-            SnowballAudio.Play(); //play the snowball sound 
-            OuchAudio.Play(); //play the snowman ouch sound
+            Debug.Log("Snowball has hit the snowoman");
+
+            animator.SetTrigger("Jump"); //make the snowman jump when hit
+            
+            SnowmanLooksAtCamera(); //the snowman should then look at the camera
+            
+            animator.SetTrigger("Sad"); //trigger sad animation
+            
+            //Audio Sounds
+            SnowballAudio.Play(); 
+            OuchAudio.Play(); 
         }
     }
 

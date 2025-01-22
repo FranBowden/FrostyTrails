@@ -1,10 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SnowmanMovement : MonoBehaviour
 {
-    public Animator animator;
+    //AI Navigation System
     private NavMeshAgent agent;
     private float boundaryBuffer = 0.5f;
     private float boundaryScale = 0.5f;
@@ -16,8 +15,7 @@ public class SnowmanMovement : MonoBehaviour
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        //  animatorManager = GetComponent<SnowmanAnimatorManager>();
+        agent = GetComponent<NavMeshAgent>(); 
 
         MeshFilter navMeshMesh = GetComponent<MeshFilter>();
         if (navMeshMesh != null)
@@ -64,6 +62,8 @@ public class SnowmanMovement : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
+
+    //To get snowman to stop or move
     public void PauseMovement()
     {
         isPaused = true;
@@ -76,16 +76,4 @@ public class SnowmanMovement : MonoBehaviour
         agent.isStopped = false; // Resume the NavMeshAgent
     }
 
-    private void OnDrawGizmos()
-    {
-        if (navMeshBoundsMin != Vector3.zero && navMeshBoundsMax != Vector3.zero)
-        {
-            Gizmos.color = Color.red;
-            Vector3 center = (navMeshBoundsMin + navMeshBoundsMax) / 2;
-
-          
-            Vector3 size = navMeshBoundsMax - navMeshBoundsMin;
-            Gizmos.DrawWireCube(center, size);
-        }
-    }
 }
