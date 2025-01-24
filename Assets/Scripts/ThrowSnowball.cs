@@ -2,16 +2,21 @@ using UnityEngine;
 
 public class ThrowSnowball : MonoBehaviour
 {
+
+    //public int snowballHitCount = 0;
+    public bool isSnowmanHit = false;
     [SerializeField] private Transform snowman;
     [SerializeField] private SnowmanThrowBall snowmanThrowball;
     [SerializeField] private SnowmanMovement snowmanMovement;
     [SerializeField] private Animator animator;
     [SerializeField] private SnowmanAnimatorManager AnimManager;
+    [SerializeField] private TurnOnLights lights;
+
     [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
     [SerializeField] private float forceAmount = 5f;
     [SerializeField] private float dragAmount = 1f;
-
+    
     private Rigidbody ballRb;
     private Transform ballTransform;
     private Transform arCamera;
@@ -42,6 +47,7 @@ public class ThrowSnowball : MonoBehaviour
 
     void SnowmanLooksAtCamera()
     {
+      
         Vector3 targetPosition = Camera.main.transform.position;
         targetPosition.y = snowman.transform.position.y; //keep the snowman upright
         snowman.transform.LookAt(targetPosition);
@@ -52,10 +58,11 @@ public class ThrowSnowball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
+          
             Debug.Log("Snowball has hit the snowoman");
+            isSnowmanHit = true;
+            //animator.SetTrigger("Jump"); //make the snowman jump when hit
 
-            animator.SetTrigger("Jump"); //make the snowman jump when hit
-            
             SnowmanLooksAtCamera(); //the snowman should then look at the camera
             
             animator.SetTrigger("Sad"); //trigger sad animation
