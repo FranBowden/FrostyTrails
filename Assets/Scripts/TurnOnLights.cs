@@ -71,7 +71,8 @@ public class TurnOnLights : MonoBehaviour
        
       if (amount < 6)
         {
-            
+
+            gameObject.GetComponent<AudioSource>().Play();
             for (int i = TurnedOnLightCount; i < NumLightsPerHit + TurnedOnLightCount; i++)
             {
                 Debug.Log("Index " + i);
@@ -126,7 +127,7 @@ public class TurnOnLights : MonoBehaviour
         }
 
 
-
+        Star.GetComponent<AudioSource>().Play(); //play star sound effect
         Star.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
         Starparticles.gameObject.SetActive(true);
       //  Star.GetComponent<Renderer>().material.SetFloat("_Me")
