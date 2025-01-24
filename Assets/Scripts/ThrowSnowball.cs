@@ -11,7 +11,7 @@ public class ThrowSnowball : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private SnowmanAnimatorManager AnimManager;
     [SerializeField] private TurnOnLights lights;
-
+    [SerializeField] private GameObject Splat;
     [SerializeField] private AudioSource OuchAudio;
     [SerializeField] private AudioSource SnowballAudio;
     [SerializeField] private float forceAmount = 5f;
@@ -33,6 +33,7 @@ public class ThrowSnowball : MonoBehaviour
     public void throwSnowball() //User throws snowball
     {
         GetComponent<Renderer>().enabled = true; //make snowball visable
+
         ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
         Vector3 shootDirection = arCamera.forward;
 
@@ -42,6 +43,7 @@ public class ThrowSnowball : MonoBehaviour
         ballRb.AddForce(shootDirection * forceAmount, ForceMode.Impulse);
 
         ballRb.linearVelocity *= 0.8f;
+        Splat.SetActive(false);
     }
 
 
@@ -54,14 +56,33 @@ public class ThrowSnowball : MonoBehaviour
         snowmanMovement.PauseMovement(); //Stop the snowman moving
     }
 
+
+    private void Update()
+    {
+        if (Splat.GetComponent<Animator>() != null)
+        {
+            AnimatorStateInfo stateInfo = Splat.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0); 
+            if (stateInfo.IsName("Snowball Break") && stateInfo.normalizedTime >= 1.0f) //if splat animation has ffinished
+            {
+                Splat.SetActive(false);
+                Debug.Log($"{Splat} animation ended, disabling animator.");
+            }
+        }
+    }
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
-          
+            Splat.SetActive(true);
+            Splat.transform.position = gameObject.transform.position;
+            Splat.GetComponent<Animator>().SetTrigger("break");
+
+
             Debug.Log("Snowball has hit the snowoman");
             isSnowmanHit = true;
-            //animator.SetTrigger("Jump"); //make the snowman jump when hit
+            animator.SetTrigger("Jump"); //make the snowman jump when hit
 
             SnowmanLooksAtCamera(); //the snowman should then look at the camera
             
