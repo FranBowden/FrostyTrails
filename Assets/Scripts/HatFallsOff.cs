@@ -11,7 +11,7 @@ public class HatFallsOff : MonoBehaviour
             if(gameObject.GetComponent<Rigidbody>() == null) {
              gameObject.AddComponent<Rigidbody>();
 
-
+                transform.parent = null;
             }
         }
     }
