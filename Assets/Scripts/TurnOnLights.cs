@@ -88,10 +88,13 @@ public class TurnOnLights : MonoBehaviour
 
                         UnityEngine.Material childMaterial = childRenderer.material;
                         childMaterials[1].EnableKeyword("_EMISSION");
+                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 2.0f);
 
                         childMaterials[1].SetFloat("_Metallic", 0f); //changes the metallic colour
+                        childMaterials[1].SetFloat("_Smoothness", 0.5f);
 
-                      
+
+
                     }
                 }
               
@@ -115,7 +118,13 @@ public class TurnOnLights : MonoBehaviour
 
                         UnityEngine.Material childMaterial = childRenderer.material;
                         childMaterials[1].EnableKeyword("_EMISSION");
-                        childMaterials[1].SetFloat("_Metallic", 0f);
+
+                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 2.0f);
+
+
+                      //  childMaterials[1].SetFloat("_Metallic", 0f);
+
+                    //    childMaterials[1].SetFloat("_Smoothness", 0.5f);
 
 
                         Debug.Log("changed color");
@@ -124,13 +133,13 @@ public class TurnOnLights : MonoBehaviour
 
 
             }
+            Star.GetComponent<AudioSource>().Play(); //play star sound effect
+            Star.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            Starparticles.gameObject.SetActive(true);
         }
 
 
-        Star.GetComponent<AudioSource>().Play(); //play star sound effect
-        Star.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-        Starparticles.gameObject.SetActive(true);
-      //  Star.GetComponent<Renderer>().material.SetFloat("_Me")
+      
 
     }
 

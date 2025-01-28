@@ -33,6 +33,8 @@ public class ThrowSnowball : MonoBehaviour
     public void throwSnowball() //User throws snowball
     {
         GetComponent<Renderer>().enabled = true; //make snowball visable
+        gameObject.GetComponent<TrailRenderer>().enabled = true;
+
 
         ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
         Vector3 shootDirection = arCamera.forward;
@@ -76,7 +78,8 @@ public class ThrowSnowball : MonoBehaviour
         if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
         {
             Splat.SetActive(true);
-            Splat.transform.position = gameObject.transform.position;
+            gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponent<TrailRenderer>().enabled = false;
             Splat.GetComponent<Animator>().SetTrigger("break");
 
 
