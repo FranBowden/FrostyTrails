@@ -8,10 +8,21 @@ public class HatFallsOff : MonoBehaviour
         {
             //snowball has collided with hat
 
-            if(gameObject.GetComponent<Rigidbody>() == null) {
-             gameObject.AddComponent<Rigidbody>();
 
-                transform.parent = null;
+            Transform splatAnimation = collision.gameObject.transform.Find("Splat");
+
+            collision.gameObject.GetComponent<Renderer>().enabled = false;
+            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+
+
+            if (splatAnimation.GetComponent<Animator>() != null)
+            {
+                splatAnimation.GetComponent<Animator>().SetTrigger("break");
+            }
+
+            if (gameObject.GetComponent<Rigidbody>() == null) {
+                 gameObject.AddComponent<Rigidbody>();
+                 transform.parent = null;
             }
         }
     }

@@ -1,102 +1,120 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ThrowSnowball : MonoBehaviour
 {
+    //previous code to get the snowman to destroy if ball hit him
+    //[SerializeField] private GroundCollision GC;
+    //[SerializeField] private MiddleSphereCollision MSC;
+    //[SerializeField] private GameObject[] snowmanParts;
+    //public bool top, middle, bottom = true;
+    //public bool hasBeenHit = false;
 
-    //public int snowballHitCount = 0;
-    public bool isSnowmanHit = false;
-    [SerializeField] private Transform snowman;
-    [SerializeField] private SnowmanThrowBall snowmanThrowball;
-    [SerializeField] private SnowmanMovement snowmanMovement;
-    [SerializeField] private Animator animator;
-    [SerializeField] private SnowmanAnimatorManager AnimManager;
-    [SerializeField] private TurnOnLights lights;
-    [SerializeField] private GameObject Splat;
-    [SerializeField] private AudioSource OuchAudio;
-    [SerializeField] private AudioSource SnowballAudio;
-    [SerializeField] private float forceAmount = 5f;
-    [SerializeField] private float dragAmount = 1f;
+
+    [SerializeField] private float force = 10f;
+
+    [Header("Gameobjects")]
+
+    [SerializeField] private GameObject snowman;
+    [SerializeField] private GameObject snowball;
     
-    private Rigidbody ballRb;
-    private Transform ballTransform;
+
     private Transform arCamera;
 
-    void Start() { 
-        
+
+    void Start()
+    {
         arCamera = Camera.main.transform; //assign ar cam 
-        ballRb = GetComponent<Rigidbody>();
-        ballRb.linearDamping = dragAmount;
-        ballTransform = transform;
     }
 
 
-    public void throwSnowball() //User throws snowball
+    public void throwSnowball() //player throws the ball
     {
-        GetComponent<Renderer>().enabled = true; //make snowball visable
-        gameObject.GetComponent<TrailRenderer>().enabled = true;
 
-
-        ballTransform.position = arCamera.position + arCamera.forward * 0.5f;
         Vector3 shootDirection = arCamera.forward;
-
-        shootDirection += new Vector3(0, -0.1f, 0);
-        shootDirection.Normalize();
-
-        ballRb.AddForce(shootDirection * forceAmount, ForceMode.Impulse);
-
-        ballRb.linearVelocity *= 0.8f;
-        Splat.SetActive(false);
+        GameObject newSnowball = Instantiate(snowball, arCamera.position + shootDirection * 0.5f, snowball.transform.rotation);
+        newSnowball.GetComponent<Rigidbody>().AddForce(shootDirection * force, ForceMode.Impulse);
     }
+}
 
 
-    void SnowmanLooksAtCamera()
-    {
-      
-        Vector3 targetPosition = Camera.main.transform.position;
-        targetPosition.y = snowman.transform.position.y; //keep the snowman upright
-        snowman.transform.LookAt(targetPosition);
-        snowmanMovement.PauseMovement(); //Stop the snowman moving
-    }
-
-
+   /*
     private void Update()
     {
-        if (Splat.GetComponent<Animator>() != null)
+
+        
+        if (hasBeenHit)
         {
-            AnimatorStateInfo stateInfo = Splat.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0); 
-            if (stateInfo.IsName("Snowball Break") && stateInfo.normalizedTime >= 1.0f) //if splat animation has ffinished
+            sm.GetComponent<Animator>().enabled = false;
+
+            Debug.LogError("animator disabled: " + !sm.GetComponent<Animator>().enabled);
+
+            Debug.LogError("top:" + top + " middle: " + middle + "bottom: " + bottom);
+
+
+            for (int i = 0; i <= 1; i++)
             {
-                Splat.SetActive(false);
-                Debug.Log($"{Splat} animation ended, disabling animator.");
+                if (snowmanParts[i].GetComponent<Rigidbody>() != null)
+                {
+                    snowmanParts[i].GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+                }
             }
-        }
+
+
+            if (top && !middle && bottom) //top and bottom
+            {
+
+                snowmanParts[0].GetComponent<Rigidbody>().isKinematic = false;
+            }
+            else if (top && middle && !bottom) //top and middle only
+            {
+
+                snowmanParts[0].GetComponent<Rigidbody>().isKinematic = false;
+                snowmanParts[1].GetComponent<Rigidbody>().isKinematic = false; //make the middle fall first
+
+
+            }
+
+            else if (top && !middle && !bottom) //top only
+            {
+
+                snowmanParts[0].GetComponent<Rigidbody>().isKinematic = false;
+            }
+
+            else if (!top && middle && !bottom) //middle only
+            {
+
+                snowmanParts[1].GetComponent<Rigidbody>().isKinematic = false;
+
+            }
+
+            else
+            {
+                hasBeenHit = false;
+            }
+
+        
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Snowman"))  //if snowball collides with snowman
+        if (collision.gameObject.CompareTag("Body1"))
         {
-            Splat.SetActive(true);
-            gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.GetComponent<TrailRenderer>().enabled = false;
-            Splat.GetComponent<Animator>().SetTrigger("break");
-
-
-            Debug.Log("Snowball has hit the snowoman");
-            isSnowmanHit = true;
-            animator.SetTrigger("Jump"); //make the snowman jump when hit
-
-            SnowmanLooksAtCamera(); //the snowman should then look at the camera
-            
-            animator.SetTrigger("Sad"); //trigger sad animation
-            
-            //Audio Sounds
-            SnowballAudio.Play(); 
-            OuchAudio.Play(); 
+            collision.gameObject.SetActive(false);
+            top = false;
         }
-    }
+        else if (collision.gameObject.CompareTag("Body2"))
+        {
+            collision.gameObject.SetActive(false);
+            middle = false;
+        }
+        else if (collision.gameObject.CompareTag("Body3"))
+        {
+            collision.gameObject.SetActive(false);
+            bottom = false;
+        }
+        hasBeenHit = true;
 
-   
-
+    
 }
+
+  */

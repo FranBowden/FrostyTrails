@@ -14,5 +14,5 @@ AssetOrigin:
   productId: 228074
   packageName: Shadow Receiver URP (FREE)
   packageVersion: 3.1.0
-  assetPath: Assets/DevDunkStudio/ShadowReceiverURP/Editor/SettingsChecker.cs
+  assetPath: Assets/Shader/DevDunkStudio/ShadowReceiverURP/Editor/SettingsChecker.cs
   uploadId: 652285

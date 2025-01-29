@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 228074
   packageName: Shadow Receiver URP (FREE)
   packageVersion: 3.1.0
-  assetPath: Assets/DevDunkStudio/ShadowReceiverURP/Samples/Materials/ShadowReceiverDoubleSided.mat
+  assetPath: Assets/Shader/DevDunkStudio/ShadowReceiverURP/Samples/Materials/ShadowReceiverDoubleSided.mat
   uploadId: 652285

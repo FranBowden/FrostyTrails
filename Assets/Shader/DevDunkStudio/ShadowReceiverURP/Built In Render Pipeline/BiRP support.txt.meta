@@ -10,6 +10,6 @@ AssetOrigin:
   productId: 228074
   packageName: Shadow Receiver URP (FREE)
   packageVersion: 3.1.0
-  assetPath: Assets/DevDunkStudio/ShadowReceiverURP/Built In Render Pipeline/BiRP
+  assetPath: Assets/Shader/DevDunkStudio/ShadowReceiverURP/Built In Render Pipeline/BiRP
     support.txt
   uploadId: 652285

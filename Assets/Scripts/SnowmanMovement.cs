@@ -67,13 +67,13 @@ public class SnowmanMovement : MonoBehaviour
     public void PauseMovement()
     {
         isPaused = true;
-        agent.isStopped = true; // Stop the NavMeshAgent
+        agent.isStopped = true; 
     }
 
     public void ResumeMovement()
     {
         isPaused = false;
-        agent.isStopped = false; // Resume the NavMeshAgent
+        agent.isStopped = false; 
     }
 
 }

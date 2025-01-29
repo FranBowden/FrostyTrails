@@ -2,16 +2,20 @@ using SteamAudio;
 using UnityEngine;
 public class TurnOnLights : MonoBehaviour
 {
-  //  [SerializeField] private ThrowSnowball TS; //reference throwsnowball script
-    
+    [Header("Reference Scripts")]
+
+    [SerializeField] private onHitSnowman snowmanHit;
+
+    [Header("Gameobjects")]
+
     [SerializeField] private GameObject Star; //get star gameobect
     [SerializeField] private GameObject Starparticles;
-   [SerializeField] private ThrowSnowball TS;
+   
     private Transform[] lights;
     private int OveralllightCount;
     private int NumLightsPerHit = 18;
-   int count = 0;
-    int TurnedOnLightCount = 0; 
+    private int count = 0;
+    private int TurnedOnLightCount = 0; 
 
 
 
@@ -35,7 +39,7 @@ public class TurnOnLights : MonoBehaviour
                 if (childMaterials.Length > 1)  //this is to stop it changing the black material, only coloured
                 {
 
-                    UnityEngine.Material uniqueMaterial = new UnityEngine.Material(childMaterials[1]); // Assuming the second material is the one to change
+                    UnityEngine.Material uniqueMaterial = new UnityEngine.Material(childMaterials[1]); 
                     uniqueMaterial.color = new Color(Random.value, Random.value, Random.value);
 
                     uniqueMaterial.SetColor("_EmissionColor", uniqueMaterial.color);
@@ -54,17 +58,17 @@ public class TurnOnLights : MonoBehaviour
 
     private void Update()
     {
-        if(TS.isSnowmanHit)
+        if(snowmanHit.isSnowmanHit)
         {
             count++;
             turnOnLights(count);
-            TS.isSnowmanHit = false;
+            snowmanHit.isSnowmanHit = false;
         }
     }
   
     //get all the lights
     //when snowman hits, plus one 
-    //if one has hit, then say if "hit" then do x function again//
+    //if one has hit, then say if "hit" then do x function again
     //then say its not hit but keep track of how many hits theres been vs the count of hits
     public void turnOnLights(int amount)
     {
@@ -122,9 +126,9 @@ public class TurnOnLights : MonoBehaviour
                         childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 2.0f);
 
 
-                      //  childMaterials[1].SetFloat("_Metallic", 0f);
+                       childMaterials[1].SetFloat("_Metallic", 0f);
 
-                    //    childMaterials[1].SetFloat("_Smoothness", 0.5f);
+                        childMaterials[1].SetFloat("_Smoothness", 0.5f);
 
 
                         Debug.Log("changed color");

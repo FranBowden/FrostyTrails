@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 228074
   packageName: Shadow Receiver URP (FREE)
   packageVersion: 3.1.0
-  assetPath: Assets/DevDunkStudio/ShadowReceiverURP/Shaders/MainLight/ShadowReceiverTransparent.shadergraph
+  assetPath: Assets/Shader/DevDunkStudio/ShadowReceiverURP/Shaders/MainLight/ShadowReceiverTransparent.shadergraph
   uploadId: 652285

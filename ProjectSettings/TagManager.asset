@@ -7,6 +7,10 @@ TagManager:
   - Snowball
   - Snowman
   - SnowGround
+  - Body1
+  - Body2
+  - Body3
+  - SnowmanSnowball
   layers:
   - Default
   - TransparentFX
