@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+
+    [Header("Audio")]
     [SerializeField] private AudioSource WhistleAudio;
+    [SerializeField] private AudioSource snowTrailAudio;
+
+    [Header("Icons")]
     [SerializeField] private GameObject volumeIcon;
     [SerializeField] private GameObject muteIcon;
-//    [SerializeField] private AudioSource SnowTrailAudio;
     public void playWhistle()
     {
         volumeIcon.SetActive(true);
@@ -20,5 +24,16 @@ public class AudioManager : MonoBehaviour
         muteIcon.SetActive(true);
         volumeIcon.SetActive(false);
         WhistleAudio.Stop();
+        turnOffSnowTrailAudio();
+    }
+
+    public void turnOnSnowTrailAudio()
+    {
+        snowTrailAudio.Play();
+    }
+
+    public void turnOffSnowTrailAudio()
+    {
+        snowTrailAudio.Stop();
     }
 }
