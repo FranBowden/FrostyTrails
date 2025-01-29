@@ -92,7 +92,7 @@ public class TurnOnLights : MonoBehaviour
 
                         UnityEngine.Material childMaterial = childRenderer.material;
                         childMaterials[1].EnableKeyword("_EMISSION");
-                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 2.0f);
+                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 3.0f);
 
                         childMaterials[1].SetFloat("_Metallic", 0f); //changes the metallic colour
                         childMaterials[1].SetFloat("_Smoothness", 0.5f);
@@ -107,7 +107,7 @@ public class TurnOnLights : MonoBehaviour
             TurnedOnLightCount += NumLightsPerHit;
         }
 
-      else //for the remaining few lights left, light them all up: (same code as above)
+      else if (amount == 6) //for the remaining few lights left, light them all up: (same code as above)
         {
             for (int i = TurnedOnLightCount; i < OveralllightCount; i++)
             {
@@ -123,7 +123,7 @@ public class TurnOnLights : MonoBehaviour
                         UnityEngine.Material childMaterial = childRenderer.material;
                         childMaterials[1].EnableKeyword("_EMISSION");
 
-                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 2.0f);
+                        childMaterials[1].SetColor("_EmissionColor", childMaterials[1].color * 3.0f);
 
 
                        childMaterials[1].SetFloat("_Metallic", 0f);

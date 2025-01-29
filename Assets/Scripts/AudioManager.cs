@@ -12,19 +12,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private GameObject muteIcon;
     public void playWhistle()
     {
-        volumeIcon.SetActive(true);
-        muteIcon.SetActive(false);
-
+    
         WhistleAudio.Play();
     }
 
 
     public void StopWhistle()
     {
-        muteIcon.SetActive(true);
-        volumeIcon.SetActive(false);
         WhistleAudio.Stop();
-        turnOffSnowTrailAudio();
     }
 
     public void turnOnSnowTrailAudio()
@@ -32,8 +27,22 @@ public class AudioManager : MonoBehaviour
         snowTrailAudio.Play();
     }
 
-    public void turnOffSnowTrailAudio()
+  
+
+    public void MuteAllSound()
     {
-        snowTrailAudio.Stop();
+
+        muteIcon.SetActive(true);
+        volumeIcon.SetActive(false);
+        AudioListener.volume = 0;
     }
+
+    public void UnMuteAllSound()
+    {
+
+        muteIcon.SetActive(false);
+        volumeIcon.SetActive(true);
+        AudioListener.volume = 1;
+    }
+
 }

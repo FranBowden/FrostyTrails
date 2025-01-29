@@ -13,7 +13,7 @@ public class DetectSnowballNearCamera : MonoBehaviour
 
     [Header("Gameobjects")]
     [SerializeField] private Animator snowDripAnimation;
-    [SerializeField] private float radius = 0.3f;
+    [SerializeField] private float radius = 0.2f;
     void Update()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);

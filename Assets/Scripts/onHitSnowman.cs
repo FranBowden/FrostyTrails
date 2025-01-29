@@ -11,10 +11,9 @@ public class onHitSnowman : MonoBehaviour
     [SerializeField] private SnowmanMovement snowmanMovement;
     void SnowmanLooksAtCamera()
     {
-
-        Vector3 targetPosition = Camera.main.transform.position;
-        targetPosition.y = gameObject.transform.position.y; //keep the snowman upright
-        gameObject.transform.LookAt(targetPosition);
+       Vector3 targetPosition = Camera.main.transform.position;
+        targetPosition.y = gameObject.transform.position.y; //camera y is the same as snowmans position y
+        gameObject.transform.LookAt(targetPosition);//snowman look at camera
         snowmanMovement.PauseMovement(); //Stop the snowman moving
     }
 
@@ -24,10 +23,13 @@ public class onHitSnowman : MonoBehaviour
         {
 
             isSnowmanHit = true;
+
             Transform splatAnimation = collision.gameObject.transform.Find("Splat");
+            Transform Trail = collision.gameObject.transform.Find("Trail");
 
             collision.gameObject.GetComponent<Renderer>().enabled = false;
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            Trail.gameObject.SetActive(false);
 
 
             if (splatAnimation.GetComponent<Animator>() != null )
