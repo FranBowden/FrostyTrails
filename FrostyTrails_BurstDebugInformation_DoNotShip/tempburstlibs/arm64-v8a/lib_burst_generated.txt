@@ -9,7 +9,6 @@ Library: E:\FrostyTrails\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_gene
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\FrostyTrails\Temp\Burst
---debug=Full
 --key-folder=E:/6000.0.30f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=E:\FrostyTrails\Library\Burst
 --output=E:\FrostyTrails\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -106,7 +105,6 @@ Library: E:\FrostyTrails\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_gene
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=E:\FrostyTrails\Temp\Burst
---debug=Full
 --key-folder=E:/6000.0.30f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=E:\FrostyTrails\Library\Burst
 --output=E:\FrostyTrails\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
