@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class SnowmanThrowBall : MonoBehaviour
 {
 
-
+    [SerializeField] private SnowmanMovement SM;
     [SerializeField] private float force = 4f;
 
     [Header("Gameobjects")]
@@ -24,6 +24,8 @@ public class SnowmanThrowBall : MonoBehaviour
         GameObject newSnowmanSnowball = Instantiate(snowmanSnowball, snowmanArm.transform.position, snowmanSnowball.transform.rotation);
 
         newSnowmanSnowball.GetComponent<Rigidbody>().AddForce(-arCamera.forward * force, ForceMode.Impulse); //need it going towards camera
+
+        SM.ResumeMovement();
 
     }
    
